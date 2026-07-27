@@ -8,10 +8,8 @@ import com.recruitment.engine.exception.DuplicateResourceException;
 import com.recruitment.engine.exception.ResourceNotFoundException;
 import com.recruitment.engine.repository.RoleRepository;
 import com.recruitment.engine.repository.UserRepository;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 

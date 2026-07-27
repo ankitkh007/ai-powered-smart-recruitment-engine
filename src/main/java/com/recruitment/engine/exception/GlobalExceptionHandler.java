@@ -94,4 +94,18 @@ public class GlobalExceptionHandler {
                 "An unexpected error occurred");
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
     }
+
+    @ExceptionHandler(AIProcessingException.class)
+    public ResponseEntity<ErrorResponseDto> handleAIProcessing(AIProcessingException ex) {
+        ErrorResponseDto response = new ErrorResponseDto(
+                HttpStatus.BAD_GATEWAY.value(), "Bad Gateway", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(response);
+    }
+
+    @ExceptionHandler(InvalidFileException.class)
+    public ResponseEntity<ErrorResponseDto> handleInvalidFile(InvalidFileException ex) {
+        ErrorResponseDto response = new ErrorResponseDto(
+                HttpStatus.BAD_REQUEST.value(), "Bad Request", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+    }
 }
