@@ -51,6 +51,9 @@ public class ResumeService {
 
         validateFile(file);
 
+        resumeRepository.findByCandidateId(candidateId)
+                .ifPresent(resumeRepository::delete);
+
         String savedPath = saveFile(candidateId, file);
         Resume resume = new Resume(candidate, savedPath, file.getSize());
         resumeRepository.save(resume);
@@ -97,13 +100,17 @@ public class ResumeService {
 
     private String saveFile(Long candidateId, MultipartFile file) {
         try {
-            Path dirPath = Paths.get(uploadDir);
+            Path dirPath = Paths.get(uploadDir).toAbsolutePath().normalize();
             if (!Files.exists(dirPath)) {
                 Files.createDirectories(dirPath);
             }
             String fileName = "candidate_" + candidateId + "_" + System.currentTimeMillis() + ".pdf";
             Path filePath = dirPath.resolve(fileName);
-            file.transferTo(filePath.toFile());
+
+            try (java.io.InputStream inputStream = file.getInputStream()) {
+                Files.copy(inputStream, filePath, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+            }
+
             return filePath.toString();
         } catch (IOException e) {
             throw new InvalidFileException("Failed to save uploaded file: " + e.getMessage());
