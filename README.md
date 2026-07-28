@@ -351,12 +351,6 @@ All errors share a consistent shape:
 
 ---
 
-## Postman Collection
-
-A Postman collection covering all endpoints above is available at `postman/SmartRecruitmentEngine.postman_collection.json`.
-
----
-
 ## Project Structure
 
 ```
