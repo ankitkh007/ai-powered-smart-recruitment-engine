@@ -210,7 +210,7 @@ Returns `204 No Content`.
 **Request:**
 ```json
 {
-  "name": "Ankit Sharma",
+  "name": "Ankit Khanna",
   "email": "ankit@example.com",
   "phone": "9999999999"
 }
